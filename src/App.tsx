@@ -1,9 +1,9 @@
 import React from 'react';
 import { Header, ScrollArrow, TabsList } from "./components";
-
-import './App.scss';
 import { useRoutes } from "react-router-dom";
 import { routesList } from "./routes/routes";
+
+import './App.scss';
 
 function App() {
     const routes = useRoutes(routesList)

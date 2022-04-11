@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { ROUTE } from "../../routes/routes";
 import { Link } from "react-router-dom";
+import { ROUTE } from "../../routes/routes";
 
 function a11yProps(index: number) {
     return {

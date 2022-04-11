@@ -1,9 +1,9 @@
 import React from 'react';
 import { ProductType } from "../../types/ProductType";
 import { motion } from "framer-motion";
+import { ProductDetails } from "../Product-details/ProductDetails";
 
 import './Product.scss'
-import { ProductDetails } from "../Product-details/ProductDetails";
 
 type PropsType = {
     product: ProductType

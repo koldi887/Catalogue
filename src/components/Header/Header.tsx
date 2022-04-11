@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.scss'
 
-const Header = () => {
+export const Header = () => {
     return (
         <div className='app__header'>
             <h2>Create Demand</h2>
@@ -10,4 +10,3 @@ const Header = () => {
     );
 };
 
-export default Header;

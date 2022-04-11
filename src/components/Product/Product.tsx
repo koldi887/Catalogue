@@ -1,27 +1,39 @@
 import React from 'react';
 import { ProductType } from "../../types/ProductType";
+import { motion } from "framer-motion";
+
 import './Product.scss'
+import { ProductDetails } from "../Product-details/ProductDetails";
 
 type PropsType = {
     product: ProductType
+    active: string
+    toggleActive: (val: string) => void
 }
 
-const Product: React.FC<PropsType> = ({ product }) => {
+export const Product: React.FC<PropsType> = ({ product, active, toggleActive }) => {
+
     return (
-        <div className='app__product'>
-            <div className='app__product-block'>
-                <h3 className='product-title'>{product.productName}</h3>
-                <ul className='app__product-tags'>
-                    {product.tags.map((tag, index) => (
-                        <li key={index} className='app__flex'>
-                            {tag}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <p className='product-category'>{product.category}</p>
-        </div>
+        <>
+            {active === product.productName && <ProductDetails product={product}/>}
+            <motion.div
+                className={`${active === product.productName ? 'border-active' : ''} app__product`}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => toggleActive(product.productName)}
+            >
+                <div className='app__product-inner'>
+                    <h3 className='head-text'>{product.productName}</h3>
+                    <ul className='tags-cmp'>
+                        {product.tags.map((tag, index) => (
+                            <li key={index} className='tag app__flex head-text '>
+                                {tag}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <p className='product__category-text'>{product.category}</p>
+            </motion.div>
+        </>
     );
 };
 
-export default Product;

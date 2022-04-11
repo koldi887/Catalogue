@@ -1,0 +1,27 @@
+.scroll {
+  position: fixed;
+  z-index: 1000;
+  border-radius: 50%;
+  background-color: #8492a6;
+  opacity: 0.25;
+  cursor: pointer;
+
+  width: 4rem;
+  height: 4rem;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  transition: opacity 0.4s;
+  animation: fadeIn 0.3s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.scroll-icon {
+  color: var(--white-color);
+  padding: 3px 4px 0 4px;
+  border-top: 3px solid var(--white-color);
+}

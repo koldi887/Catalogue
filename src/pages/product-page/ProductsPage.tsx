@@ -57,7 +57,6 @@ const ProductsPage: React.FC = () => {
         if (value === productActive) setProductActive('')
         else setProductActive(value)
     }
-
     return (
         <div className='app__products-wrapper'>
             <div className='app__products-search-wrapper white-bg'>
@@ -79,20 +78,26 @@ const ProductsPage: React.FC = () => {
                     <Search callback={searchHandler}/>
                 </div>
             </div>
+
             {isFetching && <PreLoader/>}
             {isPending && <PreLoader/>}
-            {/*{filteredValue && !filteredProducts.length && !isPending && <h1>Nothing Found</h1>}*/}
+            {filteredValue && !filteredProducts.length && !isPending && !isFetching &&
+                <h1>Nothing Found</h1>
+            }
             {error && <h1>{error}</h1>}
-            <div className='app__product-container'>
-                {filteredProducts.map((item, index) => (
-                    <Product
-                        key={index}
-                        product={item}
-                        active={productActive}
-                        toggleActive={toggleActive}
-                    />
-                ))}
-            </div>
+
+            {filteredValue && (
+                <div className='app__product-container'>
+                    {filteredProducts.map((item, index) => (
+                        <Product
+                            key={index}
+                            product={item}
+                            active={productActive}
+                            toggleActive={toggleActive}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

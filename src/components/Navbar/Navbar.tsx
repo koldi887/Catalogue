@@ -21,7 +21,6 @@ export const Navbar = () => {
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
-
     return (
         <nav className='app__nav'>
             <div className='app__nav-head'>

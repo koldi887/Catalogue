@@ -36,7 +36,7 @@ export const ProductDetails: React.FC<PropsType> = ({ product }) => {
                         Go to Manufacture
                     </motion.button>
                 </a>
-                <p>{product.description}</p>
+                <p className='p-text'>{product.description}</p>
                 {product.option1 && (
                     <div onChange={radioButtonsHandler} className='product__details-radio'>
                         <div className='radio-group-field'>

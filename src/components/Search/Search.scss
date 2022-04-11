@@ -1,0 +1,29 @@
+.search {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  input[type=text] {
+    width: 100%;
+    border: none;
+    height: 2.2rem;
+    font-weight: 400;
+    font-size: 1rem;
+    padding-left: 2.5rem;
+    border-radius: 2px;
+
+    background-color: var(--lightGray-color);
+    color: var(--black-color);
+
+    &:focus {
+      outline: none !important;
+    }
+  }
+}
+
+.search-icon {
+  position: absolute;
+  color: #AFB8C5;
+  left: 0.3rem;
+}

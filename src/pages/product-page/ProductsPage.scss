@@ -47,22 +47,6 @@
   }
 }
 
-.search-input {
-  border: none;
-  width: 100%;
-  height: 2.2rem;
-  font-weight: 400;
-  font-size: 1rem;
-  border-radius: 2px;
-
-  background-color: var(--lightGray-color);
-  color: var(--black-color);
-
-  &:focus {
-    outline: none !important;
-  }
-}
-
 .app__product-container {
   display: flex;
   flex-direction: column;

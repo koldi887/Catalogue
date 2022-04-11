@@ -1,6 +1,6 @@
 // @ts-ignore
 import React, { ChangeEvent, useMemo, useState, useTransition } from 'react';
-import { PreLoader, Product, TabsList } from "../../components";
+import { PreLoader, Product, Search, TabsList } from "../../components";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { getProducts, productsSelector } from "../../redux/reducers/productsSlice";
 
@@ -78,12 +78,7 @@ const ProductsPage: React.FC = () => {
                         ))
                         }
                     </ul>
-                    <input
-                        type="text"
-                        placeholder='Type here...'
-                        className='search-input'
-                        onChange={searchHandler}
-                    />
+                    <Search callback={searchHandler}/>
                 </div>
             </div>
             {isFetching && <PreLoader/>}

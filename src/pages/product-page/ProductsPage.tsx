@@ -1,6 +1,6 @@
 // @ts-ignore
 import React, { ChangeEvent, useMemo, useState, useTransition } from 'react';
-import { PreLoader, Product } from "../../components";
+import { PreLoader, Product, TabsList } from "../../components";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { getProducts, productsSelector } from "../../redux/reducers/productsSlice";
 
@@ -60,6 +60,7 @@ const ProductsPage: React.FC = () => {
 
     return (
         <div className='app__products-wrapper'>
+
             <div className='app__products-search-wrapper white-bg'>
                 <div className='app__products-search-head'>
                     <h2 className='head-text'>Im looking for...</h2>

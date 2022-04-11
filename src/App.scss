@@ -3,6 +3,7 @@
   width: 60%;
   margin: 0 auto 0 auto;
   padding: 4rem 0 4rem 0;
+
   font-family: var(--font-base);
 
   @media screen and (max-width: 1200px) {
@@ -37,30 +38,33 @@
 }
 
 .tags-cmp {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
   list-style: none;
-  margin: 0;
   overflow: hidden;
+  margin: 0;
   padding: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .tag {
-  background-color: rgba(18, 184, 255, 0.15);
-  border-radius: 4px;
   padding: 0 0.5rem 0 0.5rem;
-  font-weight: 500;
   min-height: 1.5rem;
+  font-weight: 500;
+  border-radius: 4px;
+
+  background-color: rgba(18, 184, 255, 0.15);
   color: var(--secondary-color);
 }
 
 .btn {
   border: none;
-  border-radius: 2px;
   outline: none;
+  border-radius: 2px;
   line-height: 1rem;
   font-weight: 500;
+
   cursor: pointer;
 }
 

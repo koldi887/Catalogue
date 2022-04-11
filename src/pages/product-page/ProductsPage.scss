@@ -1,5 +1,6 @@
 .app__products-wrapper {
   position: relative;
+
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -17,10 +18,11 @@
 }
 
 .app__products-search {
+  padding: 2rem 2rem 2rem 1.5rem;
+
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 2rem 2rem 2rem 1.5rem;
 }
 
 .app__products-search-categories {
@@ -46,13 +48,14 @@
 }
 
 .search-input {
+  border: none;
   width: 100%;
   height: 2.2rem;
-  background-color: var(--lightGray-color);
-  border: none;
-  border-radius: 2px;
   font-weight: 400;
   font-size: 1rem;
+  border-radius: 2px;
+
+  background-color: var(--lightGray-color);
   color: var(--black-color);
 
   &:focus {

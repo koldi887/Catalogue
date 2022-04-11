@@ -4,6 +4,8 @@ import Tab from '@mui/material/Tab';
 import { Link } from "react-router-dom";
 import { ROUTE } from "../../routes/routes";
 
+import './TabsList.scss'
+
 function a11yProps(index: number) {
     return {
         id: `simple-tab-${index}`,
@@ -19,7 +21,7 @@ export const TabsList = () => {
     };
 
     return (
-        <Tabs value={value} onChange={handleChange} className='app__tabs'>
+        <Tabs value={value} onChange={handleChange} className='tabs'>
             <Tab label="Products" {...a11yProps(0)} component={Link} to={ROUTE.PRODUCTS}/>
             <Tab label="Addresses" {...a11yProps(1)} component={Link} to={ROUTE.ADDRESSES}/>
             <Tab label="Overview" {...a11yProps(2)} component={Link} to={ROUTE.OVERVIEW}/>

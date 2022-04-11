@@ -16,7 +16,7 @@ export const Search: React.FC<PropsType> = ({ callback }) => {
                 placeholder='Type here...'
                 onChange={callback}
             />
-            <FontAwesomeIcon icon={faMagnifyingGlass} size={'lg'} className='search-icon'/>
+            <FontAwesomeIcon icon={faMagnifyingGlass} size={'lg'} className='search__icon'/>
         </div>
     );
 };

@@ -16,10 +16,10 @@ export const ProductDetails: React.FC<PropsType> = ({ product }) => {
 
     return (
         <div className='product__details white-bg'>
-            <div className='product__details-head'>
+            <div className='product__details__head'>
                 <h2 className='head-text'>Product Details</h2>
             </div>
-            <div className='product__details-inner'>
+            <div className='product__details__info'>
                 <h3 className='head-text'>{product.productName}</h3>
                 {product.tags.length !== 0 && (
                     <ul className='tags-cmp'>
@@ -40,13 +40,12 @@ export const ProductDetails: React.FC<PropsType> = ({ product }) => {
                 </a>
                 <p className='p-text'>{product.description}</p>
                 {product.option1 && (
-                    <div onChange={radioButtonsHandler} className='product__details-radio'>
-                        <div className='radio-group-field'>
-                            <div className='radio-inner'>
+                    <div onChange={radioButtonsHandler} className='details__form'>
+                        <div className='details__radio'>
+                            <div className='details__radio__item'>
                                 <input
                                     id='option-1'
                                     name='radio-group'
-                                    className='radio-custom'
                                     value={product.option1}
                                     type="radio"
                                 />
@@ -58,12 +57,11 @@ export const ProductDetails: React.FC<PropsType> = ({ product }) => {
                                 quia rerum tempora veniam voluptates.
                             </p>
                         </div>
-                        <div className='radio-group-field'>
-                            <div className='radio-inner'>
+                        <div className='details__radio'>
+                            <div className='details__radio__item'>
                                 <input
                                     id='option-2'
                                     name='radio-group'
-                                    className='radio-custom'
                                     value={product.option2}
                                     type="radio"
                                 />

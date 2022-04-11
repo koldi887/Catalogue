@@ -1,6 +1,6 @@
 // @ts-ignore
 import React, { ChangeEvent, useMemo, useState, useTransition } from 'react';
-import { PreLoader, Product, Search, TabsList } from "../../components";
+import { PreLoader, Product, ProductDetails, Search } from "../../components";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { getProducts, productsSelector } from "../../redux/reducers/productsSlice";
 
@@ -19,7 +19,7 @@ const ProductsPage: React.FC = () => {
     const [ filteredValue, setFilteredValue ] = useState('')
     const [ categories, setCategories ] = useState<string[]>([])
     const [ isPending, startTransition ] = useTransition()
-    const [ productActive, setProductActive ] = useState('')
+    const [ activeProduct, setActiveProduct ] = useState('')
 
     const { products, error, isFetching } = useAppSelector(productsSelector)
     const dispatch = useAppDispatch()
@@ -54,19 +54,19 @@ const ProductsPage: React.FC = () => {
     }
 
     const toggleActive = (value: string) => {
-        if (value === productActive) setProductActive('')
-        else setProductActive(value)
+        if (value === activeProduct) setActiveProduct('')
+        else setActiveProduct(value)
     }
     return (
-        <div className='app__products-wrapper'>
-            <div className='app__products-search-wrapper white-bg'>
-                <div className='app__products-search-head'>
+        <div className='products__container'>
+            <div className='products__search__wrapper white-bg'>
+                <div className='products__search__head'>
                     <h2 className='head-text'>Im looking for...</h2>
                 </div>
-                <div className='app__products-search'>
-                    <ul className='app__products-search-categories'>
+                <div className='products__search'>
+                    <ul className='products__search__categories'>
                         {categoriesList.map((category, index) => (
-                            <li key={category}>
+                            <li key={category + index}>
                                 <input
                                     type="checkbox"
                                     onChange={(e) => categoriesHandler(e, category)}
@@ -79,24 +79,23 @@ const ProductsPage: React.FC = () => {
                 </div>
             </div>
 
-            {isFetching && <PreLoader/>}
-            {isPending && <PreLoader/>}
-            {filteredValue && !filteredProducts.length && !isPending && !isFetching &&
-                <h1>Nothing Found</h1>
-            }
             {error && <h1>{error}</h1>}
+            {isFetching || isPending ? <PreLoader/> : null}
+            {filteredValue && !filteredProducts.length && !isPending && !isFetching &&
+                <h1>No results</h1>
+            }
 
-            {filteredValue && (
-                <div className='app__product-container'>
-                    {filteredProducts.map((item, index) => (
+            {filteredValue && filteredProducts.map((product, index) => (
+                    <>
                         <Product
-                            key={index}
-                            product={item}
-                            active={productActive}
+                            key={product.productName + index}
+                            product={product}
+                            active={activeProduct}
                             toggleActive={toggleActive}
                         />
-                    ))}
-                </div>
+                        {activeProduct === product.productName && <ProductDetails product={product}/>}
+                    </>
+                )
             )}
         </div>
     );

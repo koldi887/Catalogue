@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, ScrollArrow, TabsList } from "./components";
+import { Navbar, ScrollArrow } from "./components";
 import { useRoutes } from "react-router-dom";
 import { routesList } from "./routes/routes";
 

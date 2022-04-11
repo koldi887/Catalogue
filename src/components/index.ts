@@ -1,4 +1,3 @@
-export { TabsList } from './Tabs/TabsList'
 export { Product } from './Product/Product'
 export { ProductDetails } from './Product-details/ProductDetails'
 export { Navbar } from './Navbar/Navbar'

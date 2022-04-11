@@ -22,8 +22,8 @@ export const Navbar = () => {
         setValue(newValue);
     };
     return (
-        <nav className='app__nav'>
-            <div className='app__nav-head'>
+        <nav className='app__navbar'>
+            <div className='app__navbar-head'>
                 <h2>Create Demand</h2>
                 {location.pathname === ROUTE.PRODUCTS && (
                     <p>Search the product you need here. Use tags to find any alternative.</p>
@@ -35,7 +35,7 @@ export const Navbar = () => {
                     <p>Overview. Some text comes here.</p>
                 )}
             </div>
-            <Tabs value={value} onChange={handleChange} className='app__nav-tabs'>
+            <Tabs value={value} onChange={handleChange} className='app__navbar-tabs'>
                 <Tab label="Products" {...a11yProps(0)} component={Link} to={ROUTE.PRODUCTS}/>
                 <Tab label="Addresses" {...a11yProps(1)} component={Link} to={ROUTE.ADDRESSES}/>
                 <Tab label="Overview" {...a11yProps(2)} component={Link} to={ROUTE.OVERVIEW}/>

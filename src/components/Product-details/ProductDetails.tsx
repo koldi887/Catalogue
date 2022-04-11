@@ -21,13 +21,15 @@ export const ProductDetails: React.FC<PropsType> = ({ product }) => {
             </div>
             <div className='product__details-inner'>
                 <h3 className='head-text'>{product.productName}</h3>
-                <ul className='tags-cmp'>
-                    {product.tags.map((tag, index) => (
-                        <li key={index} className='tag app__flex'>
-                            {tag}
-                        </li>
-                    ))}
-                </ul>
+                {product.tags.length !== 0 && (
+                    <ul className='tags-cmp'>
+                        {product.tags.map((tag, index) => (
+                            <li key={index} className='tag app__flex'>
+                                {tag}
+                            </li>
+                        ))}
+                    </ul>
+                )}
                 <a href={product.manufacturerUrl} target="_blank" rel="noreferrer">
                     <motion.button
                         whileTap={{ scale: 0.9 }}

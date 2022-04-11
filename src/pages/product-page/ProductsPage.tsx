@@ -60,7 +60,6 @@ const ProductsPage: React.FC = () => {
 
     return (
         <div className='app__products-wrapper'>
-
             <div className='app__products-search-wrapper white-bg'>
                 <div className='app__products-search-head'>
                     <h2 className='head-text'>Im looking for...</h2>
@@ -75,8 +74,7 @@ const ProductsPage: React.FC = () => {
                                 />
                                 <label>{category}</label>
                             </li>
-                        ))
-                        }
+                        ))}
                     </ul>
                     <Search callback={searchHandler}/>
                 </div>

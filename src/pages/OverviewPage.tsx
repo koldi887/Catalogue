@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OverviewPage = () => {
+export const OverviewPage = () => {
     return (
         <div>
             <h1>OVERVIEW COMING SOON</h1>
@@ -8,4 +8,3 @@ const OverviewPage = () => {
     );
 };
 
-export default OverviewPage;

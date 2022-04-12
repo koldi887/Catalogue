@@ -1,4 +1,6 @@
-import { AddressesPage, OverviewPage, ProductsPage } from "../pages";
+import { ProductsPage } from "../pages/product-page/ProductsPage";
+import { AddressesPage } from "../pages/addresses-page/AddressesPage";
+import { OverviewPage } from "../pages/OverviewPage";
 
 export enum ROUTE {
     MAIN = "/",

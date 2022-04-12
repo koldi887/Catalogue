@@ -43,3 +43,5 @@ const productsSlice = createSlice({
 export const { setProducts, setFetching, setError } = productsSlice.actions;
 export const productsSelector = (state: RootState) => state.products;
 export default productsSlice.reducer;
+
+export type ProductsStateType = typeof initialState;

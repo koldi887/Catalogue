@@ -1,8 +1,11 @@
 // @ts-ignore
 import React, { ChangeEvent, useMemo, useState, useTransition } from 'react';
-import { PreLoader, Product, ProductDetails, Search } from "../../components";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { getProducts, productsSelector } from "../../redux/reducers/productsSlice";
+import { Search } from "../../components/Search/Search";
+import { PreLoader } from "../../components/common/pre-loader/PreLoader";
+import { Product } from "../../components/Product/Product";
+import { ProductDetails } from "../../components/Product-details/ProductDetails";
 
 import './ProductsPage.scss'
 
@@ -14,7 +17,7 @@ const categoriesList = [
     'Management Tools'
 ]
 
-const ProductsPage: React.FC = () => {
+export const ProductsPage: React.FC = () => {
     const [ searchValue, setSearchValue ] = useState('')
     const [ filteredValue, setFilteredValue ] = useState('')
     const [ categories, setCategories ] = useState<string[]>([])
@@ -57,6 +60,7 @@ const ProductsPage: React.FC = () => {
         if (value === activeProduct) setActiveProduct('')
         else setActiveProduct(value)
     }
+
     return (
         <div className='products__container'>
             <div className='products__search__wrapper white-bg'>
@@ -78,13 +82,11 @@ const ProductsPage: React.FC = () => {
                     <Search callback={searchHandler}/>
                 </div>
             </div>
-
             {error && <h1>{error}</h1>}
             {isFetching || isPending ? <PreLoader/> : null}
             {filteredValue && !filteredProducts.length && !isPending && !isFetching &&
                 <h1>No results</h1>
             }
-
             {filteredValue && filteredProducts.map((product, index) => (
                     <>
                         <Product
@@ -101,4 +103,3 @@ const ProductsPage: React.FC = () => {
     );
 };
 
-export default ProductsPage;

@@ -47,11 +47,16 @@
   display: flex;
   align-items: center;
 
-  input[type=radio] {
+  input[type='radio'] {
     margin-right: 0.5rem;
     width: 1rem;
     height: 1rem;
     cursor: pointer;
+    opacity: 0.5;
+
+    &:checked {
+      opacity: unset;
+    }
 
     ~ label {
       color: var(--gray-color);

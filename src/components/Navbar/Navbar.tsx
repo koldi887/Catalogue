@@ -13,7 +13,7 @@ function a11yProps(index: number) {
     };
 }
 
-export const Navbar = () => {
+export const Navbar: React.FC = () => {
     const [ value, setValue ] = useState(0);
 
     const location = useLocation()

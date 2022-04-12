@@ -1,6 +1,7 @@
 import React from 'react';
-import { Navbar, ScrollArrow } from "./components";
 import { useRoutes } from "react-router-dom";
+import { Navbar } from "./components/Navbar/Navbar";
+import { ScrollArrow } from "./components/common/scroll-arrow/ScrollArrow";
 import { routesList } from "./routes/routes";
 
 import './App.scss';

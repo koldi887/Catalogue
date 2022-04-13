@@ -1,10 +1,12 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import App from './App';
-import { renderWithStore } from "./utils/reduxRender";
+import { testRender } from "./utils/reduxRender";
+import { setupStore } from "./redux/redux-store";
 
 test('renders learn react link', () => {
-    renderWithStore(<App/>, {});
+    const store = setupStore()
+    testRender(<App/>, { store });
     const linkElement = screen.getByText(/dima/i);
     expect(linkElement).toBeInTheDocument();
 });

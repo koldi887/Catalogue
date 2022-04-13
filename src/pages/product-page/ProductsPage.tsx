@@ -82,9 +82,9 @@ export const ProductsPage: React.FC = () => {
                     <Search callback={searchHandler}/>
                 </div>
             </div>
-            {error && <h1>{error}</h1>}
+            {error && <h1 className='head-text'>{error}</h1>}
             {isFetching || isPending ? <PreLoader/> : null}
-            {filteredValue && !filteredProducts.length && !isPending && !isFetching &&
+            {filteredValue && !filteredProducts.length && !isPending && !isFetching && !error &&
                 <h1>No results</h1>
             }
             {filteredValue && filteredProducts.map((product, index) => (

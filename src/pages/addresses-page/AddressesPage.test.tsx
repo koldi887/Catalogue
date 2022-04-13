@@ -1,11 +1,11 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import { AddressesPage } from "./AddressesPage";
-import { renderWithStore } from "../../utils/reduxRender";
+import { testRender } from "../../utils/reduxRender";
 
 describe('AddressesPage component', () => {
     test('component renders', () => {
-        renderWithStore(<AddressesPage/>, {});
+        testRender(<AddressesPage/>, {});
         const element = screen.getByText(/addresses coming soon/i);
         expect(element).toBeInTheDocument();
     });

@@ -1,8 +1,9 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { fireEvent, getByPlaceholderText, getByText, screen } from '@testing-library/react';
 import { ProductsPage } from "./ProductsPage";
 import { ProductsStateType } from "../../redux/reducers/productsSlice";
-import { renderWithStore } from "../../utils/reduxRender";
+import { testRender } from "../../utils/reduxRender";
+import { setupStore } from "../../redux/redux-store";
 
 const initialState: ProductsStateType = {
     error: 'some error',
@@ -32,8 +33,26 @@ const initialState: ProductsStateType = {
 
 describe('Products page component', () => {
     test('renders component', () => {
-        renderWithStore(<ProductsPage/>, {})
-        const text = screen.getByText(/Im looking for.../i)
+        const store = setupStore()
+
+        const { getByText } = testRender(<ProductsPage/>, { store });
+        const text = getByText('Im looking for...')
         expect(text).toBeInTheDocument();
     });
+
+    test('search callback', () => {
+        const store = setupStore()
+        const spyDispatch = jest.spyOn(store, 'dispatch');
+
+        const { getByPlaceholderText } = testRender(<ProductsPage/>, { store });
+        const input = getByPlaceholderText('Type here...')
+
+        fireEvent.input(input, {
+            target: { value: 'Foxit software PhantomPDF Standard' }
+        })
+        
+        expect(spyDispatch).toBeCalledTimes(1);
+        expect(screen.getByText(/dima/i)).toBeInTheDocument()
+    });
+
 })

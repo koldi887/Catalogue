@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -25,6 +28,7 @@
     "@types/redux-mock-store": "^1.0.3",
     "axios": "^0.26.1",
     "axios-mock-adapter": "^1.20.0",
+    "babel-jest": "^27.5.1",
     "framer-motion": "^6.2.9",
     "json-server": "^0.17.0",
     "moxios": "^0.4.0",
@@ -36,6 +40,7 @@
     "react-scripts": "5.0.0",
     "redux-mock-store": "^1.5.4",
     "styled-components": "^5.3.5",
+    "ts-jest": "^27.1.4",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4"
   },
@@ -64,6 +69,7 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.13.0"
+    "eslint": "^8.13.0",
+    "jest": "^27.5.1"
   }
 }

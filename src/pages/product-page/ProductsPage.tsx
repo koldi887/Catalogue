@@ -36,6 +36,7 @@ export const ProductsPage: React.FC = () => {
     }
 
     const filteredProducts = useMemo(() => {
+        console.log(searchValue)
         return (
             filteredProductsByCategories().filter((product) => (
                 product.productName.toLowerCase().includes(filteredValue.toLowerCase())))
@@ -88,15 +89,14 @@ export const ProductsPage: React.FC = () => {
                 <h1>No results</h1>
             }
             {filteredValue && filteredProducts.map((product, index) => (
-                    <>
+                    <div key={product.productName + index}>
                         <Product
-                            key={product.productName + index}
                             product={product}
                             active={activeProduct}
                             toggleActive={toggleActive}
                         />
                         {activeProduct === product.productName && <ProductDetails product={product}/>}
-                    </>
+                    </div>
                 )
             )}
         </div>

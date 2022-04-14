@@ -50,9 +50,8 @@ describe('Products page component', () => {
         fireEvent.input(input, {
             target: { value: 'Foxit software PhantomPDF Standard' }
         })
-        
+
         expect(spyDispatch).toBeCalledTimes(1);
-        expect(screen.getByText(/dima/i)).toBeInTheDocument()
     });
 
 })

@@ -10,7 +10,7 @@ function App() {
     const routes = useRoutes(routesList)
 
     return (
-        <div className="app">
+        <div data-testid='app' className="app">
             <Navbar/>
             {routes}
             <ScrollArrow/>

@@ -34,7 +34,7 @@ const initialState: ProductsStateType = {
 }
 
 describe('Products slice actions', () => {
-    it('should handle initialstate', () => {
+    it('should handle initial state', () => {
         expect(productsSlice(undefined, { type: "products" })).toEqual(initialState);
     })
 
@@ -52,4 +52,5 @@ describe('Products slice actions', () => {
         const actual = productsSlice(initialState, setProducts(products))
         expect(actual).toEqual({ ...initialState, products: products })
     });
+    
 })

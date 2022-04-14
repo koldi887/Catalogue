@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, { ChangeEvent, useMemo, useState, useTransition } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState, useTransition } from 'react';
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { getProducts, productsSelector } from "../../redux/reducers/productsSlice";
 import { Search } from "../../components/Search/Search";
@@ -36,7 +36,6 @@ export const ProductsPage: React.FC = () => {
     }
 
     const filteredProducts = useMemo(() => {
-        console.log(searchValue)
         return (
             filteredProductsByCategories().filter((product) => (
                 product.productName.toLowerCase().includes(filteredValue.toLowerCase())))
@@ -58,6 +57,7 @@ export const ProductsPage: React.FC = () => {
     }
 
     const toggleActive = (value: string) => {
+        if (!products.length) dispatch(getProducts())
         if (value === activeProduct) setActiveProduct('')
         else setActiveProduct(value)
     }

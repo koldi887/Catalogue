@@ -8,9 +8,8 @@ export const getProducts = createAsyncThunk<void, void>
     async function (_, { dispatch }) {
         dispatch(setFetching())
         try {
-            await productsApi.requestProducts().then(response => {
-                dispatch(setProducts(response))
-            })
+            const response = await productsApi.requestProducts()
+            dispatch(setProducts(response))
         } catch {
             dispatch(setError('Some error has been occurred'))
         } finally {

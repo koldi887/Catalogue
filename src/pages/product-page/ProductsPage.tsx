@@ -63,7 +63,7 @@ export const ProductsPage: React.FC = () => {
     }
 
     return (
-        <div className='products__container'>
+        <div className='products__container' data-testid='products-page'>
             <div className='products__search__wrapper white-bg'>
                 <div className='products__search__head'>
                     <h2 className='head-text'>Im looking for...</h2>

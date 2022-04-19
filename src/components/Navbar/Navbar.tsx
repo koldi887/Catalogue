@@ -36,9 +36,27 @@ export const Navbar: React.FC = () => {
                 )}
             </div>
             <Tabs value={value} onChange={handleChange} className='app__navbar-tabs'>
-                <Tab label="Products" {...a11yProps(0)} component={Link} to={ROUTE.PRODUCTS}/>
-                <Tab label="Addresses" {...a11yProps(1)} component={Link} to={ROUTE.ADDRESSES}/>
-                <Tab label="Overview" {...a11yProps(2)} component={Link} to={ROUTE.OVERVIEW}/>
+                <Tab
+                    label="Products"
+                    {...a11yProps(0)}
+                    component={Link}
+                    to={ROUTE.PRODUCTS}
+                    data-testid='products-link'
+                />
+                <Tab
+                    label="Addresses"
+                    {...a11yProps(1)}
+                    component={Link}
+                    to={ROUTE.ADDRESSES}
+                    data-testid='addresses-link'
+                />
+                <Tab
+                    label="Overview"
+                    {...a11yProps(2)}
+                    component={Link}
+                    to={ROUTE.OVERVIEW}
+                    data-testid='overview-link'
+                />
             </Tabs>
         </nav>
     );

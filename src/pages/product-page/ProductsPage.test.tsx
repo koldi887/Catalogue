@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, getByPlaceholderText, getByText, screen } from '@testing-library/react';
 import { ProductsPage } from "./ProductsPage";
-import { ProductsStateType } from "../../redux/reducers/productsSlice";
+import { getProducts, ProductsStateType } from "../../redux/reducers/productsSlice";
 import { testRender } from "../../utils/reduxRender";
 import { setupStore } from "../../redux/redux-store";
 
@@ -54,4 +54,33 @@ describe('Products page component', () => {
         expect(spyDispatch).toBeCalledTimes(1);
     });
 
+
+    test('search callback', () => {
+        const store = setupStore()
+        const spyDispatch = jest.spyOn(store, 'dispatch');
+
+        const { getByPlaceholderText } = testRender(<ProductsPage/>, { store });
+        const input = getByPlaceholderText('Type here...')
+
+        fireEvent.input(input, {
+            target: { value: 'Foxit software PhantomPDF Standard' }
+        })
+
+        expect(spyDispatch).toBeCalledTimes(1);
+    });
+
+    test('search input handler', () => {
+        const store = setupStore()
+
+        const spyDispatch = jest.spyOn(store, 'dispatch');
+
+        const { getByPlaceholderText } = testRender(<ProductsPage/>, { store });
+        const input = getByPlaceholderText('Type here...')
+
+        fireEvent.input(input, {
+            target: { value: 'Foxit software PhantomPDF Standard' }
+        })
+
+        expect(spyDispatch).toBeCalledTimes(1);
+    });
 })

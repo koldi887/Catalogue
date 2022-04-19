@@ -6,8 +6,14 @@ import productsSlice, {
     setProducts
 } from "./productsSlice";
 import { productsApi } from "../../api/products-api";
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
 jest.mock("../../api/products-api")
+const productsApiMock = productsApi as jest.Mocked<typeof productsApi>;
+
+const middlewares = [ thunk ];
+const mockStore = configureStore(middlewares);
 
 const products = [
     {
@@ -37,17 +43,6 @@ const initialState: ProductsStateType = {
     products: []
 }
 
-const productsApiMock = productsApi as jest.Mocked<typeof productsApi>;
-
-const dispatchMock = jest.fn();
-const getStateMock = jest.fn();
-
-beforeEach(() => {
-    dispatchMock.mockClear();
-    getStateMock.mockClear();
-    productsApiMock.requestProducts.mockClear();
-});
-
 describe('Products slice actions', () => {
     describe('Products slice actions', () => {
         it('should handle initial state', () => {
@@ -69,21 +64,28 @@ describe('Products slice actions', () => {
             expect(actual).toEqual({ ...initialState, products: products })
         });
     })
-    describe("products reducer thunks", () => {
+
+    describe("async actions", () => {
         it("getProducts thunk success", async () => {
-            productsApiMock.requestProducts.mockReturnValueOnce(Promise.resolve(products));
-            const thunk = getProducts();
-            thunk(dispatchMock, getStateMock, {});
-            expect(dispatchMock).toBeCalledTimes(2);
-            expect(dispatchMock).toHaveBeenCalledWith(setProducts(products));
+            productsApiMock.requestProducts.mockReturnValueOnce(Promise.resolve(products))
+            const store = mockStore({});
+
+            await store.dispatch(getProducts() as any)
+
+            expect(store.getActions()[0].type).toEqual(getProducts.pending.type)
+            expect(store.getActions()[1]).toEqual(setFetching())
+            expect(store.getActions()[2]).toEqual(setProducts(products))
         });
 
         it("getProducts thunk rejected", async () => {
-            productsApiMock.requestProducts.mockReturnValueOnce(Promise.reject('error'));
-            const thunk = getProducts();
-            thunk(dispatchMock, getStateMock, {});
-            expect(dispatchMock).toBeCalledTimes(2);
-            expect(dispatchMock).toHaveBeenCalledWith(setError('Some error has been occurred'));
+            productsApiMock.requestProducts.mockReturnValueOnce(Promise.reject(''))
+            const store = mockStore({});
+
+            await store.dispatch(getProducts() as any)
+
+            expect(store.getActions()[0].type).toEqual(getProducts.pending.type)
+            expect(store.getActions()[1]).toEqual(setFetching())
+            expect(store.getActions()[2]).toEqual(setError('Some error has been occurred'))
         });
     });
 })

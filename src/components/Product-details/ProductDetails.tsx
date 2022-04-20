@@ -39,7 +39,7 @@ export const ProductDetails: React.FC<PropsType> = ({ product }) => {
                     </motion.button>
                 </a>
                 <p className='p-text'>{product.description}</p>
-                {product.option1 && (
+                {product.option1 && product.option2 && (
                     <div onChange={radioButtonsHandler} className='details__form'>
                         <div className='details__radio'>
                             <div className='details__radio__item'>

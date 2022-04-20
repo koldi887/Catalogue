@@ -4,6 +4,6 @@ export type ProductType = {
     category: string,
     manufacturerUrl: string,
     description: string[],
-    option1: string,
-    option2: string
+    option1: string | null,
+    option2: string | null
 }

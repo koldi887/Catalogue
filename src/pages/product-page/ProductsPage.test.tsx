@@ -1,86 +1,60 @@
 import React from 'react';
-import { fireEvent, getByPlaceholderText, getByText, screen } from '@testing-library/react';
+import {
+    fireEvent,
+    getByPlaceholderText,
+    getByTestId,
+    getByText,
+    waitFor
+} from '@testing-library/react';
 import { ProductsPage } from "./ProductsPage";
-import { getProducts, ProductsStateType } from "../../redux/reducers/productsSlice";
+import { ProductsStateType } from "../../redux/reducers/productsSlice";
 import { testRender } from "../../utils/reduxRender";
-import { setupStore } from "../../redux/redux-store";
+import { productsList } from "../../utils/productsList"
+import { productsApi } from "../../api/products-api";
+
+jest.mock("../../api/products-api")
+const productsApiMock = productsApi as jest.Mocked<typeof productsApi>;
 
 const initialState: ProductsStateType = {
-    error: 'some error',
+    error: '',
     isFetching: false,
-    products: [
-        {
-            productName: "Foxit software PhantomPDF Standard",
-            tags: [
-                "PDF",
-                "Change",
-                "Create",
-                "Maintenance",
-                "Business",
-                "FoxIT"
-            ],
-            category: "Daily Business",
-            manufacturerUrl: "https://www.foxitsoftware.com/de/pdf-editor",
-            description: [
-                "PhantomPDF provides powerful PDF Editor capabilities to allow authors to update their documents themselves.",
-                "Standard - Simple interface and limited functionality."
-            ],
-            option1: "1 Year Maintenance",
-            option2: "Without Maintenance"
-        }
-    ]
+    products: productsList
 }
 
 describe('Products page component', () => {
-    test('renders component', () => {
-        const store = setupStore()
-
-        const { getByText } = testRender(<ProductsPage/>, { store });
+    test('Component renders', () => {
+        const { getByText } = testRender(<ProductsPage/>, {});
         const text = getByText('Im looking for...')
         expect(text).toBeInTheDocument();
     });
 
-    test('search callback', () => {
-        const store = setupStore()
-        const spyDispatch = jest.spyOn(store, 'dispatch');
-
-        const { getByPlaceholderText } = testRender(<ProductsPage/>, { store });
-        const input = getByPlaceholderText('Type here...')
-
-        fireEvent.input(input, {
-            target: { value: 'Foxit software PhantomPDF Standard' }
+    describe('Products search', () => {
+        beforeEach(() => {
+            productsApiMock.requestProducts.mockClear()
         })
 
-        expect(spyDispatch).toBeCalledTimes(1);
-    });
+        test('shows error if thunk rejected', async () => {
+            productsApiMock.requestProducts.mockReturnValueOnce(Promise.reject())
+            const { getByPlaceholderText, getByTestId } = testRender(<ProductsPage/>, {})
+            const input = getByPlaceholderText('Type here...')
+            fireEvent.input(input, {
+                target: { value: 'text' }
+            })
+            await waitFor(() => {
+                expect(getByTestId('products-error')).toBeInTheDocument()
+            })
+        });
 
-
-    test('search callback', () => {
-        const store = setupStore()
-        const spyDispatch = jest.spyOn(store, 'dispatch');
-
-        const { getByPlaceholderText } = testRender(<ProductsPage/>, { store });
-        const input = getByPlaceholderText('Type here...')
-
-        fireEvent.input(input, {
-            target: { value: 'Foxit software PhantomPDF Standard' }
-        })
-
-        expect(spyDispatch).toBeCalledTimes(1);
-    });
-
-    test('search input handler', () => {
-        const store = setupStore()
-
-        const spyDispatch = jest.spyOn(store, 'dispatch');
-
-        const { getByPlaceholderText } = testRender(<ProductsPage/>, { store });
-        const input = getByPlaceholderText('Type here...')
-
-        fireEvent.input(input, {
-            target: { value: 'Foxit software PhantomPDF Standard' }
-        })
-
-        expect(spyDispatch).toBeCalledTimes(1);
-    });
+        test('', async () => {
+            productsApiMock.requestProducts.mockReturnValueOnce(Promise.resolve(productsList))
+            const { getByPlaceholderText } = testRender(<ProductsPage/>, {})
+            const input = getByPlaceholderText('Type here...')
+            fireEvent.input(input, {
+                target: { value: 'text' }
+            })
+            await waitFor(() => {
+                // expect().toBeCalledTimes(1)
+            })
+        });
+    })
 })

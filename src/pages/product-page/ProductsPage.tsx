@@ -57,7 +57,6 @@ export const ProductsPage: React.FC = () => {
     }
 
     const toggleActive = (value: string) => {
-        if (!products.length) dispatch(getProducts())
         if (value === activeProduct) setActiveProduct('')
         else setActiveProduct(value)
     }
@@ -83,7 +82,7 @@ export const ProductsPage: React.FC = () => {
                     <Search callback={searchHandler}/>
                 </div>
             </div>
-            {error && <h1 className='head-text'>{error}</h1>}
+            {error && <h1 className='head-text' data-testid='products-error'>{error}</h1>}
             {isFetching || isPending ? <PreLoader/> : null}
             {filteredValue && !filteredProducts.length && !isPending && !isFetching && !error &&
                 <h1>No results</h1>

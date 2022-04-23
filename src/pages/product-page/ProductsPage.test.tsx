@@ -1,9 +1,9 @@
 import React from 'react';
 import {
     fireEvent,
-    getByPlaceholderText,
-    getByTestId,
+    getByPlaceholderText, getByTestId,
     getByText,
+    queryByTestId,
     waitFor
 } from '@testing-library/react';
 import { ProductsPage } from "./ProductsPage";
@@ -22,39 +22,68 @@ const initialState: ProductsStateType = {
 }
 
 describe('Products page component', () => {
-    test('Component renders', () => {
-        const { getByText } = testRender(<ProductsPage/>, {});
-        const text = getByText('Im looking for...')
-        expect(text).toBeInTheDocument();
+    test('Component renders and products not displayed', () => {
+        const { getByText, queryByTestId } = testRender(<ProductsPage/>, {});
+
+        expect(getByText('Im looking for...')).toBeInTheDocument();
+        expect(queryByTestId('product')).toBeNull();
     });
 
+    test('showing product details', () => {
+        const { queryByTestId, getByTestId, getByPlaceholderText } = testRender(
+            <ProductsPage/>, { initialState: { products: initialState } });
+        const input = getByPlaceholderText('Type here...')
+
+        fireEvent.input(input, { target: { value: 'Foxit' } })
+        const product = getByTestId('product')
+        expect(product).toBeInTheDocument()
+        fireEvent.click(product)
+        expect(queryByTestId('product-details')).toBeInTheDocument()
+
+    })
+
     describe('Products search', () => {
-        beforeEach(() => {
-            productsApiMock.requestProducts.mockClear()
-        })
+        beforeEach(() => productsApiMock.requestProducts.mockClear())
 
         test('shows error if thunk rejected', async () => {
-            productsApiMock.requestProducts.mockReturnValueOnce(Promise.reject())
-            const { getByPlaceholderText, getByTestId } = testRender(<ProductsPage/>, {})
+            const mockApi = productsApiMock.requestProducts.mockReturnValueOnce(Promise.reject())
+            const { getByPlaceholderText, queryByTestId } = testRender(<ProductsPage/>, {})
             const input = getByPlaceholderText('Type here...')
-            fireEvent.input(input, {
-                target: { value: 'text' }
-            })
+
+            fireEvent.input(input, { target: { value: 'text' } })
+
             await waitFor(() => {
-                expect(getByTestId('products-error')).toBeInTheDocument()
+                expect(mockApi).toBeCalled()
+                expect(queryByTestId('products-error')).toBeInTheDocument()
+                expect(queryByTestId('product')).toBeNull()
             })
         });
 
-        test('', async () => {
-            productsApiMock.requestProducts.mockReturnValueOnce(Promise.resolve(productsList))
-            const { getByPlaceholderText } = testRender(<ProductsPage/>, {})
+        test('thunk resolves and searched products displaying while typing', async () => {
+            const mockApi = productsApiMock.requestProducts.mockReturnValueOnce(Promise.resolve(productsList))
+            const { getByPlaceholderText, queryAllByTestId } = testRender(<ProductsPage/>, {})
             const input = getByPlaceholderText('Type here...')
+
             fireEvent.input(input, {
-                target: { value: 'text' }
+                target: { value: 'Tableau Desktop Professional' }
             })
+
+            expect(mockApi).toBeCalled()
             await waitFor(() => {
-                // expect().toBeCalledTimes(1)
+                expect(queryAllByTestId('product')).toHaveLength(1)
             })
         });
+
+        test('search has no results', () => {
+            const { getByPlaceholderText, queryByText, queryByTestId } = testRender(
+                <ProductsPage/>, { initialState: { products: initialState } })
+            const input = getByPlaceholderText('Type here...')
+
+            fireEvent.input(input, {
+                target: { value: 'some text' }
+            })
+            expect(queryByText('No results')).toBeInTheDocument()
+            expect(queryByTestId('product')).toBeNull()
+        })
     })
 })

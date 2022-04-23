@@ -15,7 +15,7 @@ export const ProductDetails: React.FC<PropsType> = ({ product }) => {
     }
 
     return (
-        <div className='product__details white-bg'>
+        <div className='product__details white-bg' data-testid='product-details'>
             <div className='product__details__head'>
                 <h2 className='head-text'>Product Details</h2>
             </div>

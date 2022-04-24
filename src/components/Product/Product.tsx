@@ -14,7 +14,7 @@ export const Product: React.FC<PropsType> = ({ product, active, toggleActive }) 
 
     return (
         <motion.div
-            data-testid='product-container'
+            data-testid='product'
             className={`${active === product.productName ? 'border-active' : ''} product__container`}
             whileTap={{ scale: 0.9 }}
             onClick={() => toggleActive(product.productName)}

@@ -15,7 +15,7 @@ import { productsApi } from "../../api/products-api";
 jest.mock("../../api/products-api")
 const productsApiMock = productsApi as jest.Mocked<typeof productsApi>;
 
-const initialState: ProductsStateType = {
+const state: ProductsStateType = {
     error: '',
     isFetching: false,
     products: productsList
@@ -30,16 +30,18 @@ describe('Products page component', () => {
     });
 
     test('showing product details', () => {
-        const { queryByTestId, getByTestId, getByPlaceholderText } = testRender(
-            <ProductsPage/>, { initialState: { products: initialState } });
+        const { queryAllByTestId, getByTestId, getByPlaceholderText } = testRender(
+            <ProductsPage/>, { initialState: { products: state } });
         const input = getByPlaceholderText('Type here...')
 
         fireEvent.input(input, { target: { value: 'Foxit' } })
-        const product = getByTestId('product')
-        expect(product).toBeInTheDocument()
-        fireEvent.click(product)
-        expect(queryByTestId('product-details')).toBeInTheDocument()
 
+        const product = queryAllByTestId('product')
+        expect(product).toHaveLength(2)
+
+        fireEvent.click(product[0])
+
+        expect(getByTestId('product-details')).toBeInTheDocument()
     })
 
     describe('Products search', () => {
@@ -76,7 +78,7 @@ describe('Products page component', () => {
 
         test('search has no results', () => {
             const { getByPlaceholderText, queryByText, queryByTestId } = testRender(
-                <ProductsPage/>, { initialState: { products: initialState } })
+                <ProductsPage/>, { initialState: { products: state } })
             const input = getByPlaceholderText('Type here...')
 
             fireEvent.input(input, {

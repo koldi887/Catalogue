@@ -88,7 +88,7 @@ export const ProductsPage: React.FC = () => {
                 <h1>No results</h1>
             }
             {filteredValue && filteredProducts.map((product, index) => (
-                    <div key={product.productName + index} data-testid='product'>
+                    <div key={product.productName + index}>
                         <Product
                             product={product}
                             active={activeProduct}

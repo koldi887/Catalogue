@@ -1,13 +1,13 @@
-import { ProductsPage } from "../pages/product-page/ProductsPage";
-import { AddressesPage } from "../pages/addresses-page/AddressesPage";
-import { OverviewPage } from "../pages/OverviewPage";
+import { ProductsPage } from '../pages/product-page/ProductsPage';
+import { AddressesPage } from '../pages/addresses-page/AddressesPage';
+import { OverviewPage } from '../pages/OverviewPage';
 
 export enum ROUTE {
-    MAIN = "/",
-    PRODUCTS = "/products",
-    ADDRESSES = "/addresses",
-    OVERVIEW = "/overview",
-    OTHER_ROUTES = "/*",
+    MAIN = '/',
+    PRODUCTS = '/products',
+    ADDRESSES = '/addresses',
+    OVERVIEW = '/overview',
+    OTHER_ROUTES = '/*',
 }
 
 export const routesList = [
@@ -27,4 +27,4 @@ export const routesList = [
         path: ROUTE.OTHER_ROUTES,
         element: <ProductsPage/>,
     },
-]
+];

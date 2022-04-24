@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from 'react';
-import { ProductType } from "../../types/ProductType";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
+import { ProductType } from '../../types/ProductType';
 
-import './PorductDetails.scss'
+import './PorductDetails.scss';
 
 type PropsType = {
     product: ProductType
@@ -11,8 +11,8 @@ type PropsType = {
 export const ProductDetails: React.FC<PropsType> = ({ product }) => {
 
     const radioButtonsHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value)
-    }
+        // console.log(e.target.value);
+    };
 
     return (
         <div className='product__details white-bg' data-testid='product-details'>
@@ -30,7 +30,7 @@ export const ProductDetails: React.FC<PropsType> = ({ product }) => {
                         ))}
                     </ul>
                 )}
-                <a href={product.manufacturerUrl} target="_blank" rel="noreferrer">
+                <a href={product.manufacturerUrl} target='_blank' rel='noreferrer'>
                     <motion.button
                         whileTap={{ scale: 0.9 }}
                         className='btn btn_theme_secondary btn_size_lg'
@@ -47,7 +47,7 @@ export const ProductDetails: React.FC<PropsType> = ({ product }) => {
                                     id='option-1'
                                     name='radio-group'
                                     value={product.option1}
-                                    type="radio"
+                                    type='radio'
                                 />
                                 <label htmlFor='option-1'>{product.option1}</label>
                             </div>
@@ -63,9 +63,9 @@ export const ProductDetails: React.FC<PropsType> = ({ product }) => {
                                     id='option-2'
                                     name='radio-group'
                                     value={product.option2}
-                                    type="radio"
+                                    type='radio'
                                 />
-                                <label htmlFor="option-2">{product.option2}</label>
+                                <label htmlFor='option-2'>{product.option2}</label>
                             </div>
                             <p className='p-text'>
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut autem

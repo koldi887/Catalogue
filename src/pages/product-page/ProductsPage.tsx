@@ -1,13 +1,13 @@
 // @ts-ignore
-import React, { ChangeEvent, useEffect, useMemo, useState, useTransition } from 'react';
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { getProducts, productsSelector } from "../../redux/reducers/productsSlice";
-import { Search } from "../../components/Search/Search";
-import { PreLoader } from "../../components/common/pre-loader/PreLoader";
-import { Product } from "../../components/Product/Product";
-import { ProductDetails } from "../../components/Product-details/ProductDetails";
+import React, { ChangeEvent, useMemo, useState, useTransition } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { getProducts, productsSelector } from '../../redux/reducers/productsSlice';
+import { Search } from '../../components/Search/Search';
+import { PreLoader } from '../../components/common/pre-loader/PreLoader';
+import { Product } from '../../components/Product/Product';
+import { ProductDetails } from '../../components/Product-details/ProductDetails';
 
-import './ProductsPage.scss'
+import './ProductsPage.scss';
 
 const categoriesList = [
     'Software Development',
@@ -15,51 +15,51 @@ const categoriesList = [
     'Graphic Editors',
     'Text Editors',
     'Management Tools'
-]
+];
 
 export const ProductsPage: React.FC = () => {
-    const [ searchValue, setSearchValue ] = useState('')
-    const [ filteredValue, setFilteredValue ] = useState('')
-    const [ categories, setCategories ] = useState<string[]>([])
-    const [ isPending, startTransition ] = useTransition()
-    const [ activeProduct, setActiveProduct ] = useState('')
+    const [ searchValue, setSearchValue ] = useState('');
+    const [ filteredValue, setFilteredValue ] = useState('');
+    const [ categories, setCategories ] = useState<string[]>([]);
+    const [ isPending, startTransition ] = useTransition();
+    const [ activeProduct, setActiveProduct ] = useState('');
 
-    const { products, error, isFetching } = useAppSelector(productsSelector)
-    const dispatch = useAppDispatch()
+    const { products, error, isFetching } = useAppSelector(productsSelector);
+    const dispatch = useAppDispatch();
 
     const filteredProductsByCategories = () => {
         if (categories.length) {
             return products.filter(product => {
-                return categories.some(item => product.category.toLowerCase().includes(item.toLowerCase()))
-            })
-        } else return products
-    }
+                return categories.some(item => product.category.toLowerCase().includes(item.toLowerCase()));
+            });
+        } else return products;
+    };
 
     const filteredProducts = useMemo(() => {
         return (
             filteredProductsByCategories().filter((product) => (
                 product.productName.toLowerCase().includes(filteredValue.toLowerCase())))
-        )
-    }, [ searchValue, categories, products ])
+        );
+    }, [ searchValue, categories, products ]);
 
     const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if (!products.length) dispatch(getProducts())
-        setSearchValue(e.target.value)
-        startTransition(() => setFilteredValue(e.target.value))
-    }
+        if (!products.length) dispatch(getProducts());
+        setSearchValue(e.target.value);
+        startTransition(() => setFilteredValue(e.target.value));
+    };
 
     const categoriesHandler = (e: ChangeEvent<HTMLInputElement>, value: string) => {
         if (e.target.checked) {
-            setCategories([ ...categories, value ])
+            setCategories([ ...categories, value ]);
         } else {
-            setCategories(categories.filter(category => category !== value))
+            setCategories(categories.filter(category => category !== value));
         }
-    }
+    };
 
     const toggleActive = (value: string) => {
-        if (value === activeProduct) setActiveProduct('')
-        else setActiveProduct(value)
-    }
+        if (value === activeProduct) setActiveProduct('');
+        else setActiveProduct(value);
+    };
 
     return (
         <div className='products__container' data-testid='products-page'>
@@ -72,7 +72,7 @@ export const ProductsPage: React.FC = () => {
                         {categoriesList.map((category, index) => (
                             <li key={category + index}>
                                 <input
-                                    type="checkbox"
+                                    type='checkbox'
                                     onChange={(e) => categoriesHandler(e, category)}
                                 />
                                 <label>{category}</label>

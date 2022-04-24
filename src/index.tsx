@@ -1,12 +1,12 @@
 import React from 'react';
 import './index.css';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { setupStore } from './redux/redux-store';
 import App from './App';
-import { createRoot } from "react-dom/client";
-import { setupStore } from "./redux/redux-store";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
 
-const root = createRoot(document.getElementById("root")!);
+const root = createRoot(document.getElementById('root')!);
 
 root.render(
     <Provider store={setupStore()}>
@@ -14,4 +14,4 @@ root.render(
             <App/>
         </BrowserRouter>
     </Provider>
-)
+);

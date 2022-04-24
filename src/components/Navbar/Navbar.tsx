@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from "react-router-dom";
-import { ROUTE } from "../../routes/routes";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import { Link, useLocation } from 'react-router-dom';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import { ROUTE } from '../../routes/routes';
 
-import './Navbar.scss'
+import './Navbar.scss';
 
 function a11yProps(index: number) {
     return {
@@ -16,7 +16,7 @@ function a11yProps(index: number) {
 export const Navbar: React.FC = () => {
     const [ value, setValue ] = useState(0);
 
-    const location = useLocation()
+    const location = useLocation();
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -37,21 +37,21 @@ export const Navbar: React.FC = () => {
             </div>
             <Tabs value={value} onChange={handleChange} className='app__navbar-tabs'>
                 <Tab
-                    label="Products"
+                    label='Products'
                     {...a11yProps(0)}
                     component={Link}
                     to={ROUTE.PRODUCTS}
                     data-testid='products-link'
                 />
                 <Tab
-                    label="Addresses"
+                    label='Addresses'
                     {...a11yProps(1)}
                     component={Link}
                     to={ROUTE.ADDRESSES}
                     data-testid='addresses-link'
                 />
                 <Tab
-                    label="Overview"
+                    label='Overview'
                     {...a11yProps(2)}
                     component={Link}
                     to={ROUTE.OVERVIEW}

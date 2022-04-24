@@ -1,91 +1,81 @@
 import React from 'react';
-import {
-    fireEvent,
-    getByPlaceholderText, getByTestId,
-    getByText,
-    queryByTestId,
-    waitFor
-} from '@testing-library/react';
-import { ProductsPage } from "./ProductsPage";
-import { ProductsStateType } from "../../redux/reducers/productsSlice";
-import { testRender } from "../../utils/reduxRender";
-import { productsList } from "../../utils/productsList"
-import { productsApi } from "../../api/products-api";
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { ProductsStateType } from '../../redux/reducers/productsSlice';
+import { testRender } from '../../utils/reduxRender';
+import { productsList } from '../../utils/productsList';
+import { productsApi } from '../../api/products-api';
+import { ProductsPage } from './ProductsPage';
 
-jest.mock("../../api/products-api")
+jest.mock('../../api/products-api');
 const productsApiMock = productsApi as jest.Mocked<typeof productsApi>;
 
 const state: ProductsStateType = {
     error: '',
     isFetching: false,
     products: productsList
-}
+};
 
 describe('Products page component', () => {
     test('Component renders and products not displayed', () => {
-        const { getByText, queryByTestId } = testRender(<ProductsPage/>, {});
-
-        expect(getByText('Im looking for...')).toBeInTheDocument();
-        expect(queryByTestId('product')).toBeNull();
+        testRender(<ProductsPage/>, {});
+        expect(screen.getByText('Im looking for...')).toBeInTheDocument();
+        expect(screen.queryByTestId('product')).toBeNull();
     });
 
     test('showing product details', () => {
-        const { queryAllByTestId, getByTestId, getByPlaceholderText } = testRender(
-            <ProductsPage/>, { initialState: { products: state } });
-        const input = getByPlaceholderText('Type here...')
+        testRender(<ProductsPage/>, { initialState: { products: state } });
+        const input = screen.getByPlaceholderText('Type here...');
 
-        fireEvent.input(input, { target: { value: 'Foxit' } })
+        fireEvent.input(input, { target: { value: 'Foxit' } });
 
-        const product = queryAllByTestId('product')
-        expect(product).toHaveLength(2)
+        const product = screen.queryAllByTestId('product');
+        expect(product).toHaveLength(2);
 
-        fireEvent.click(product[0])
+        fireEvent.click(product[0]);
 
-        expect(getByTestId('product-details')).toBeInTheDocument()
-    })
+        expect(screen.getByTestId('product-details')).toBeInTheDocument();
+    });
 
     describe('Products search', () => {
-        beforeEach(() => productsApiMock.requestProducts.mockClear())
+        beforeEach(() => productsApiMock.requestProducts.mockClear());
 
         test('shows error if thunk rejected', async () => {
-            const mockApi = productsApiMock.requestProducts.mockReturnValueOnce(Promise.reject())
-            const { getByPlaceholderText, queryByTestId } = testRender(<ProductsPage/>, {})
-            const input = getByPlaceholderText('Type here...')
+            const mockApi = productsApiMock.requestProducts.mockReturnValueOnce(Promise.reject());
+            testRender(<ProductsPage/>, {});
+            const input = screen.getByPlaceholderText('Type here...');
 
-            fireEvent.input(input, { target: { value: 'text' } })
+            fireEvent.input(input, { target: { value: 'text' } });
 
+            expect(mockApi).toBeCalled();
             await waitFor(() => {
-                expect(mockApi).toBeCalled()
-                expect(queryByTestId('products-error')).toBeInTheDocument()
-                expect(queryByTestId('product')).toBeNull()
-            })
+                expect(screen.getByTestId('products-error')).toBeInTheDocument();
+            });
+            expect(screen.queryByTestId('product')).toBeNull();
         });
 
         test('thunk resolves and searched products displaying while typing', async () => {
-            const mockApi = productsApiMock.requestProducts.mockReturnValueOnce(Promise.resolve(productsList))
-            const { getByPlaceholderText, queryAllByTestId } = testRender(<ProductsPage/>, {})
-            const input = getByPlaceholderText('Type here...')
+            const mockApi = productsApiMock.requestProducts.mockReturnValueOnce(Promise.resolve(productsList));
+            testRender(<ProductsPage/>, {});
+            const input = screen.getByPlaceholderText('Type here...');
 
             fireEvent.input(input, {
                 target: { value: 'Tableau Desktop Professional' }
-            })
+            });
 
-            expect(mockApi).toBeCalled()
+            expect(mockApi).toBeCalled();
             await waitFor(() => {
-                expect(queryAllByTestId('product')).toHaveLength(1)
-            })
+                expect(screen.queryAllByTestId('product')).toHaveLength(1);
+            });
         });
 
         test('search has no results', () => {
-            const { getByPlaceholderText, queryByText, queryByTestId } = testRender(
-                <ProductsPage/>, { initialState: { products: state } })
-            const input = getByPlaceholderText('Type here...')
-
+            testRender(<ProductsPage/>, { initialState: { products: state } });
+            const input = screen.getByPlaceholderText('Type here...');
             fireEvent.input(input, {
                 target: { value: 'some text' }
-            })
-            expect(queryByText('No results')).toBeInTheDocument()
-            expect(queryByTestId('product')).toBeNull()
-        })
-    })
-})
+            });
+            expect(screen.getByText('No results')).toBeInTheDocument();
+            expect(screen.queryByTestId('product')).toBeNull();
+        });
+    });
+});

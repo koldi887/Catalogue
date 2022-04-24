@@ -1,8 +1,8 @@
 import React from 'react';
-import { ProductType } from "../../types/ProductType";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
+import { ProductType } from '../../types/ProductType';
 
-import './Product.scss'
+import './Product.scss';
 
 type PropsType = {
     product: ProductType

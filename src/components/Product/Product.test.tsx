@@ -1,26 +1,26 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { Product } from "./Product";
+import { render, screen } from '@testing-library/react';
+import { Product } from './Product';
 
 const product = {
-    productName: "Foxit software PhantomPDF Standard",
+    productName: 'Foxit software PhantomPDF Standard',
     tags: [
-        "PDF",
-        "Change",
-        "Create",
-        "Maintenance",
-        "Business",
-        "FoxIT"
+        'PDF',
+        'Change',
+        'Create',
+        'Maintenance',
+        'Business',
+        'FoxIT'
     ],
-    category: "Daily Business",
-    manufacturerUrl: "https://www.foxitsoftware.com/de/pdf-editor",
+    category: 'Daily Business',
+    manufacturerUrl: 'https://www.foxitsoftware.com/de/pdf-editor',
     description: [
-        "PhantomPDF provides powerful PDF Editor capabilities to allow authors to update their documents themselves.",
-        "Standard - Simple interface and limited functionality."
+        'PhantomPDF provides powerful PDF Editor capabilities to allow authors to update their documents themselves.',
+        'Standard - Simple interface and limited functionality.'
     ],
-    option1: "1 Year Maintenance",
-    option2: "Without Maintenance"
-}
+    option1: '1 Year Maintenance',
+    option2: 'Without Maintenance'
+};
 
 describe('Product component', () => {
     test('component renders', () => {
@@ -40,5 +40,5 @@ describe('Product component', () => {
         const element = screen.getByTestId('product-container');
         expect(element).not.toHaveClass('border-active');
     });
-})
+});
 

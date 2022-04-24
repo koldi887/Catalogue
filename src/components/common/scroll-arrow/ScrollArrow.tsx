@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowUp } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
-import './ScrollArrow.scss'
+import './ScrollArrow.scss';
 
 export const ScrollArrow = () => {
-    const [ visible, setVisible ] = useState(false)
+    const [ visible, setVisible ] = useState(false);
 
     const toggleVisible = () => {
         const scrolled = document.documentElement.scrollTop;
         if (scrolled) {
-            setVisible(true)
+            setVisible(true);
         } else if (!scrolled) {
-            setVisible(false)
+            setVisible(false);
         }
     };
 
@@ -34,4 +34,4 @@ export const ScrollArrow = () => {
             <FontAwesomeIcon icon={faArrowUp} size={'lg'} className='scroll-icon'/>
         </div>
     );
-}
+};
